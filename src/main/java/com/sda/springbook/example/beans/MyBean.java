@@ -14,4 +14,6 @@ public class MyBean {
     public String bookPresentation() {
         return TITLE.concat(bookName).concat(" written by " + bookAuthor +".");
     }
+
+
 }

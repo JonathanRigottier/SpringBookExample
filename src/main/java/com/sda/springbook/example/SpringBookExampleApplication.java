@@ -1,6 +1,9 @@
 package com.sda.springbook.example;
 
+import com.sda.springbook.example.annotationbeans.BookNewReleaseReview;
+import com.sda.springbook.example.annotationbeans.BookReviewData;
 import com.sda.springbook.example.beans.MyBean;
+import com.sda.springbook.example.configurations.AnnotationBeanConfiguration;
 import com.sda.springbook.example.configurations.ExplicitBeanConfiguration;
 import com.sda.springbook.example.explicitbeans.BookMainData;
 import org.springframework.context.ApplicationContext;
@@ -13,6 +16,8 @@ public class SpringBookExampleApplication {
         xmlBean();
 
         javaBean();
+
+        annotationBean();
     }
 
     private static void xmlBean() {
@@ -37,4 +42,19 @@ public class SpringBookExampleApplication {
         bookMainData = new BookMainData("Historial", 1969, "Japan");
         System.out.println(bookMainData.toString());
     }
+
+    private static void annotationBean() {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+        applicationContext.register(AnnotationBeanConfiguration.class);
+        applicationContext.refresh();
+
+        BookReviewData bookReviewData = applicationContext.getBean(BookReviewData.class);
+        System.out.println(bookReviewData.getBeanName().getReview());
+
+        bookReviewData.setBeanName(new BookNewReleaseReview());
+        System.out.println(bookReviewData.getBeanName().getReview());
+
+
+    }
+
 }
